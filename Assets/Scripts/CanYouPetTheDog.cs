@@ -12,7 +12,6 @@ public class CanYouPetTheDog : MonoBehaviour
     private Minigame mini;
     private int numPets = 0;
     private float handPos = 4;
-    bool buttonPressed;
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +19,7 @@ public class CanYouPetTheDog : MonoBehaviour
         dogBox = dog.GetComponent<BoxCollider2D>();
         handBox = hand.GetComponent<BoxCollider2D>();
         mini = GetComponent<Minigame>();
-        hand.transform.localPosition = new Vector3(0.0f, 4.0f, 1.0f);
+        hand.transform.localPosition = new Vector3(1.0f, 4.0f, 1.0f);
         numPets = 0;
         handPos = 4;
         hasCollided = false;
@@ -30,19 +29,18 @@ public class CanYouPetTheDog : MonoBehaviour
     void Update()
     {
         handPos = Mathf.Clamp(handPos, 2, 4);
-        hand.transform.localPosition = new Vector3(0.0f, handPos, 1.0f);
-        if (mini.finish == true)
+        hand.transform.localPosition = new Vector3(1.0f, handPos, 1.0f);
+        if (mini.finish == true || mini.timerGet <= 0)
         {
             Reset();
-            gameObject.SetActive(false);
         }
-        if (handBox.IsTouching(dogBox) && !hasCollided)
+        if (dogBox.IsTouching(handBox) && !hasCollided)
         {
-            numPets++;
             Debug.Log("barlk bark");
+            numPets++;
             hasCollided = true;
         }
-        if (!handBox.IsTouching(dogBox))
+        if (!dogBox.IsTouching(handBox))
         {
             hasCollided = false;
         }
@@ -52,12 +50,12 @@ public class CanYouPetTheDog : MonoBehaviour
         }
         if (Input.GetButton(mini.button))
         {
-            handPos -= 0.1f;
+            handPos -= 4f * Time.deltaTime;
             //numPets++;
         }
         else
         {
-            handPos += 0.05f;
+            handPos += 3f * Time.deltaTime;
         }
     }
     void Reset()
@@ -65,6 +63,6 @@ public class CanYouPetTheDog : MonoBehaviour
         numPets = 0;
         handPos = 4;
         hasCollided = false;
-        hand.transform.localPosition = new Vector3(0.0f, 4.0f, 1.0f);
+        hand.transform.localPosition = new Vector3(1.0f, 4.0f, 1.0f);
     }
 }

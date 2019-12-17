@@ -6,7 +6,7 @@ public class charController : MonoBehaviour
 {
     [SerializeField]
     float moveSpeed = 3f;
-
+    Player player;
     Vector3 forward, right;
     public string xAxis, yAxis, button;
 
@@ -14,6 +14,7 @@ public class charController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<Player>();
         forward = Camera.main.transform.forward;
         forward.y = 0;
         forward = Vector3.Normalize(forward);
@@ -26,7 +27,6 @@ public class charController : MonoBehaviour
         if(Input.GetAxis(xAxis) != 0 || Input.GetAxis(yAxis) != 0)
         Move();
     }
-
 
     void Move()
     {

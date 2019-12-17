@@ -60,12 +60,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Minigame.cs" />
-    <Compile Include="Assets\Player.cs" />
-    <Compile Include="Assets\PlayerManager.cs" />
+    <Compile Include="Assets\ColorDino.cs" />
     <Compile Include="Assets\Scripts\CanYouPetTheDog.cs" />
     <Compile Include="Assets\Scripts\charController.cs" />
     <Compile Include="Assets\Scripts\Mini_Details.cs" />
+    <Compile Include="Assets\Scripts\Minigame.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerManager.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/s199011/Desktop/BegoneThought/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
