@@ -30,7 +30,7 @@ public class CanYouPetTheDog : MonoBehaviour
         {
             mini.finish = true;
         }
-        if (mini.buttonTap == true)
+        if (Input.GetButtonDown(mini.button))
         {
             hand.transform.localPosition = new Vector3(0, hand.transform.localPosition.y - 0.25f, 0);
             numPresses++;

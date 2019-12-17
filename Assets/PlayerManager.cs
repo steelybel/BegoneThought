@@ -21,6 +21,11 @@ public class PlayerManager : MonoBehaviour
             if (!players[0].inMinigame)
             AssignMinigame(0);
         }
+        if (Input.GetButtonDown("P2_Fire"))
+        {
+            if (!players[1].inMinigame)
+                AssignMinigame(1);
+        }
     }
     void AssignMinigame(int player)
     {

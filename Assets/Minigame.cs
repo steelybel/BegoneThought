@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class Minigame : MonoBehaviour
 {
-    public float xAxis;
-    public float yAxis;
-    public bool buttonHold;
-    public bool buttonTap;
+    public string xAxis;
+    public string yAxis;
+    public string button;
     private float timer;
     public bool finish = false;
     [SerializeField]
-    private float timerSet;
+    private float timerSet = 5.0f;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +20,6 @@ public class Minigame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        xAxis = Input.GetAxis("P1_Horizontal");
-        yAxis = Input.GetAxis("P1_Vertical");
-        buttonHold = Input.GetButton("P1_Fire");
-        buttonTap = Input.GetButtonDown("P1_Fire");
 
         if (timer > 0f) timer -= Time.deltaTime;
     }

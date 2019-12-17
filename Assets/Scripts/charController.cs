@@ -8,6 +8,7 @@ public class charController : MonoBehaviour
     float moveSpeed = 3f;
 
     Vector3 forward, right;
+    public string xAxis, yAxis, button;
 
 
     // Start is called before the first frame update
@@ -28,9 +29,9 @@ public class charController : MonoBehaviour
 
     void Move()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("P1_Horizontal"), 0, Input.GetAxis("P1_Vertical"));
-        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis("P1_Horizontal");
-        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis("P1_Vertical");
+        Vector3 direction = new Vector3(Input.GetAxis(xAxis), 0, Input.GetAxis(yAxis));
+        Vector3 rightMovement = right * moveSpeed * Time.deltaTime * Input.GetAxis(xAxis);
+        Vector3 upMovement = forward * moveSpeed * Time.deltaTime * Input.GetAxis(yAxis);
 
         Vector3 heading = Vector3.Normalize(rightMovement + upMovement);
 

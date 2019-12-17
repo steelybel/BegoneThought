@@ -41,5 +41,8 @@ public class Player : MonoBehaviour
     public void SetMini(Minigame m)
     {
         minigame = m;
+        minigame.xAxis = control.xAxis;
+        minigame.yAxis = control.yAxis;
+        minigame.button = control.button;
     }
 }
