@@ -11,6 +11,9 @@ public class SwordQuick : MonoBehaviour
     public Animator exclamation;
     public Sprite[] guySpr;
     public Sprite[] enemySpr;
+	public AudioClip cueSound;
+	public AudioClip slashSound;
+	private AudioSource sound;
     private SpriteRenderer _guy;
     private SpriteRenderer _enemy;
     private bool hitEnemy = false;
@@ -23,6 +26,7 @@ public class SwordQuick : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		sound = GetComponent<AudioSource>();
         mini = GetComponent<Minigame>();
         swordGuy.transform.localPosition = new Vector3(1.25f, 0.25f, 0.0f);
         _guy = swordGuy.GetComponent<SpriteRenderer>();
@@ -45,6 +49,8 @@ public class SwordQuick : MonoBehaviour
         {
             Debug.Log("Can swing");
             exclamation.Play("exc");
+			sound.clip = cueSound;
+			sound.Play();
         }
         if(mini.timerGet <= swingTiming && mini.timerGet >= (swingTiming-1))
         {
@@ -52,6 +58,8 @@ public class SwordQuick : MonoBehaviour
             if (Input.GetButtonDown(mini.button))
             {
                 Debug.Log("You hit the enemy");
+				sound.clip = slashSound;
+				sound.Play();
                 exclamation.Play("exc2");
                 blackScreen.Play("slash");
                 _guy.sprite = guySpr[1];
@@ -61,11 +69,14 @@ public class SwordQuick : MonoBehaviour
 
             }
         }
-        if (mini.timerGet <= (swingTiming - 1) && !hitEnemy)
+        if (mini.timerGet <= (swingTiming - 0.5f) && !hitEnemy)
         {
             if (!uSuck)
             {
+				exclamation.Play("exc2");
                 blackScreen.Play("slash");
+				sound.clip = slashSound;
+				sound.Play();
                 uSuck = true;
             }
             _enemy.sprite = enemySpr[1];

@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
                 if (minigame.timerGet <= 0)
                 {
                     if (!minigame.finish) stun = 3.0f;
+					minigame.finish = false;
                     minigame.gameObject.SetActive(false);
                     minigame = null;
                 }
