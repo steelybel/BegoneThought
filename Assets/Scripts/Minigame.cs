@@ -21,7 +21,7 @@ public class Minigame : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timer > 0f && !finish) timer -= Time.deltaTime;
+        if (timer > 0f) timer -= Time.deltaTime;
     }
     public void TimerSet()
     {

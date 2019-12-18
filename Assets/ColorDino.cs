@@ -8,19 +8,20 @@ public class ColorDino : MonoBehaviour
     public GameObject dino;
     public Sprite dinoBlank;
     public Sprite dinoColor;
+    private AudioSource sound;
     private SpriteRenderer dinoSpr;
-    private BoxCollider2D cursorBox;
+    private Collider2D cursorBox;
     private BoxCollider2D dinoBox;
     private bool color = false;
     private Minigame mini;
     private float cursorPos = -4;
     private float cursorBound = 4;
-    [SerializeField]
-    private float cursorSpeed = 4f;
+    private float cursorSpeed = 16f;
     // Start is called before the first frame update
     void Start()
     {
-        cursorBox = cursor.GetComponent<BoxCollider2D>();
+        sound = GetComponent<AudioSource>();
+        cursorBox = cursor.GetComponent<Collider2D>();
         dinoBox = dino.GetComponent<BoxCollider2D>();
         dinoSpr = dino.GetComponent<SpriteRenderer>();
         mini = GetComponent<Minigame>();
@@ -33,12 +34,13 @@ public class ColorDino : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mini.finish == true || mini.timerGet <= 0)
+        if (mini.timerGet <= 0)
         {
             Reset();
         }
         if (color)
         {
+            if (dinoSpr.sprite != dinoColor) sound.Play();
             mini.finish = true;
             dinoSpr.sprite = dinoColor;
         }
@@ -48,7 +50,7 @@ public class ColorDino : MonoBehaviour
         }
         cursorPos += cursorSpeed * Time.deltaTime;
         cursor.transform.localPosition = new Vector3(cursorPos, 0.0f, 1.0f);
-        if ((cursorPos == cursorBound && cursorSpeed > 0f)||(cursorPos == (cursorBound * -1) && cursorSpeed < 0f))
+        if ((cursorPos >= cursorBound && cursorSpeed > 0f)||(cursorPos <= (cursorBound * -1) && cursorSpeed < 0f))
         {
             cursorSpeed *= -1;
         }
@@ -56,7 +58,7 @@ public class ColorDino : MonoBehaviour
         {
             Debug.Log("Color them dinosaurs boyyyyy");
             cursorSpeed = 0;
-            if (cursorBox.IsTouching(dinoBox))
+            if (Physics2D.IsTouching(dinoBox,cursorBox))
             {
                 color = true;
             }
@@ -67,6 +69,6 @@ public class ColorDino : MonoBehaviour
         color = false;
         cursorBound = 4;
         cursorPos = -4;
-        cursorSpeed = 4f;
+        cursorSpeed = 16f;
     }
 }

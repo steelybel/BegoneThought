@@ -58,12 +58,9 @@ public class Player : MonoBehaviour
             }
             else
             {
-                if (minigame.finish || minigame.timerGet <= 0)
+                if (minigame.timerGet <= 0)
                 {
-                    if (minigame.timerGet <= 0)
-                    {
-                        stun = 3.0f;
-                    }
+                    if (!minigame.finish) stun = 3.0f;
                     minigame.gameObject.SetActive(false);
                     minigame = null;
                 }

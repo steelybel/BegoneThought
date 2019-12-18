@@ -7,6 +7,8 @@ public class PlayerManager : MonoBehaviour
     public Player[] players;
     public GameObject[] minigames;
     public static GameObject encIntro;
+    public static AudioClip minigameWinSnd;
+    public static AudioClip minigameLoseSnd;
 
     // Start is called before the first frame update
     void Start()

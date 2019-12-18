@@ -6,8 +6,10 @@ public class CanYouPetTheDog : MonoBehaviour
 {
     public GameObject hand;
     public GameObject dog;
-    private BoxCollider2D dogBox;
-    private BoxCollider2D handBox;
+    public SpriteRenderer sparkle;
+    private AudioSource sound;
+    private Collider2D dogBox;
+    private Collider2D handBox;
     private bool hasCollided = false;
     private Minigame mini;
     private int numPets = 0;
@@ -16,8 +18,10 @@ public class CanYouPetTheDog : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sound = GetComponent<AudioSource>();
         dogBox = dog.GetComponent<BoxCollider2D>();
         handBox = hand.GetComponent<BoxCollider2D>();
+        sparkle.enabled = false;
         mini = GetComponent<Minigame>();
         hand.transform.localPosition = new Vector3(1.0f, 4.0f, 1.0f);
         numPets = 0;
@@ -28,19 +32,25 @@ public class CanYouPetTheDog : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        handPos = Mathf.Clamp(handPos, 2, 4);
+        handPos = Mathf.Clamp(handPos, 2.25f, 4f);
         hand.transform.localPosition = new Vector3(1.0f, handPos, 1.0f);
-        if (mini.finish == true || mini.timerGet <= 0)
+        if (mini.finish)
+        {
+            sparkle.enabled = true;
+        }
+        if (mini.timerGet <= 0)
         {
             Reset();
         }
-        if (dogBox.IsTouching(handBox) && !hasCollided)
+
+        if (Physics2D.IsTouching(dogBox, handBox) && !hasCollided)
         {
+            sound.Play();
             Debug.Log("barlk bark");
             numPets++;
             hasCollided = true;
         }
-        if (!dogBox.IsTouching(handBox))
+        if (!Physics2D.IsTouching(dogBox, handBox))
         {
             hasCollided = false;
         }
@@ -50,19 +60,20 @@ public class CanYouPetTheDog : MonoBehaviour
         }
         if (Input.GetButton(mini.button))
         {
-            handPos -= 4f * Time.deltaTime;
+            handPos -= 5f * Time.deltaTime;
             //numPets++;
         }
         else
         {
-            handPos += 3f * Time.deltaTime;
+            handPos += 4f * Time.deltaTime;
         }
     }
-    void Reset()
+    private void Reset()
     {
         numPets = 0;
         handPos = 4;
         hasCollided = false;
         hand.transform.localPosition = new Vector3(1.0f, 4.0f, 1.0f);
+        sparkle.enabled = false;
     }
 }
